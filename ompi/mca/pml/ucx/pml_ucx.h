@@ -39,10 +39,6 @@ typedef struct pml_ucx_convertor            mca_pml_ucx_convertor_t;
 struct mca_pml_ucx_module {
     mca_pml_base_module_t     super;
 
-    /* UCX global objects */
-    ucp_context_h             ucp_context;
-    ucp_worker_h              ucp_worker;
-
     /* Datatypes */
     int                       datatype_attr_keyval;
     ucp_datatype_t            predefined_types[OMPI_DATATYPE_MPI_MAX_PREDEFINED];
@@ -64,8 +60,6 @@ struct mca_pml_ucx_module {
 extern mca_pml_base_component_2_1_0_t mca_pml_ucx_component;
 extern mca_pml_ucx_module_t ompi_pml_ucx;
 
-int mca_pml_ucx_open(void);
-int mca_pml_ucx_close(void);
 int mca_pml_ucx_init(int enable_mpi_threads);
 int mca_pml_ucx_cleanup(void);
 
