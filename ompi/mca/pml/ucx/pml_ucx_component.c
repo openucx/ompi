@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Mellanox Technologies Ltd. 2001-2011.  ALL RIGHTS RESERVED.
+ * Copyright (c) 2021      Huawei Technologies Co., Ltd.  All rights reserved.
  * $COPYRIGHT$
  *
  * Additional copyrights may follow
@@ -10,6 +11,7 @@
 #include "pml_ucx.h"
 
 #include "opal/mca/memory/base/base.h"
+#include "ompi/mca/common/ucx/common_ucx.h"
 
 
 static int mca_pml_ucx_component_register(void);
@@ -87,14 +89,14 @@ static int mca_pml_ucx_component_open(void)
 {
     opal_common_ucx_mca_register();
 
-    return mca_pml_ucx_open();
+    return mca_common_ucx_open("MPI", &ompi_pml_ucx.request_size);
 }
 
 static int mca_pml_ucx_component_close(void)
 {
     int rc;
 
-    rc = mca_pml_ucx_close();
+    rc = mca_common_ucx_close();
     if (rc != 0) {
         return rc;
     }
@@ -110,7 +112,7 @@ mca_pml_ucx_component_init(int* priority, bool enable_progress_threads,
     opal_common_ucx_support_level_t support_level;
     int ret;
 
-    support_level = opal_common_ucx_support_level(ompi_pml_ucx.ucp_context);
+    support_level = opal_common_ucx_support_level(opal_common_ucx.ucp_context);
     if (support_level == OPAL_COMMON_UCX_SUPPORT_NONE) {
         return NULL;
     }

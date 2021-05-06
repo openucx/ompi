@@ -31,7 +31,7 @@ static int mca_pml_ucx_request_free(ompi_request_t **rptr)
 
 static int mca_pml_ucx_request_cancel(ompi_request_t *req, int flag)
 {
-    ucp_request_cancel(ompi_pml_ucx.ucp_worker, req);
+    ucp_request_cancel(opal_common_ucx.ucp_worker, req);
     return OMPI_SUCCESS;
 }
 
@@ -230,7 +230,7 @@ static int mca_pml_ucx_persistent_request_cancel(ompi_request_t *req, int flag)
     mca_pml_ucx_persistent_request_t* preq = (mca_pml_ucx_persistent_request_t*)req;
 
     if (preq->tmp_req != NULL) {
-        ucp_request_cancel(ompi_pml_ucx.ucp_worker, preq->tmp_req);
+        ucp_request_cancel(opal_common_ucx.ucp_worker, preq->tmp_req);
     }
     return OMPI_SUCCESS;
 }
